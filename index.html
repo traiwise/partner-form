@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Çözüm Ortağı Ürün Tanıtım Formu</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap');
+
+  :root {
+    --blue-dark: #0a1628;
+    --blue-mid: #1a3a6b;
+    --blue-accent: #2563eb;
+    --blue-light: #dbeafe;
+    --blue-pale: #eff6ff;
+    --white: #ffffff;
+    --gray-text: #64748b;
+    --border: #cbd5e1;
+    --success: #10b981;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: linear-gradient(135deg, #f0f7ff 0%, #e8f0fe 50%, #f5f3ff 100%);
+    min-height: 100vh;
+    padding: 32px 16px 60px;
+    color: var(--blue-dark);
+  }
+
+  .container { max-width: 860px; margin: 0 auto; }
+
+  .header {
+    text-align: center;
+    margin-bottom: 40px;
+    animation: fadeDown 0.6s ease both;
+  }
+
+  .header .badge {
+    display: inline-block;
+    background: var(--blue-accent);
+    color: white;
+    font-family: 'Syne', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 100px;
+    margin-bottom: 16px;
+  }
+
+  .header h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(26px, 5vw, 40px);
+    font-weight: 800;
+    color: var(--blue-dark);
+    line-height: 1.15;
+    margin-bottom: 10px;
+  }
+
+  .header p {
+    color: var(--gray-text);
+    font-size: 15px;
+    font-weight: 300;
+    max-width: 520px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  .progress-bar {
+    background: var(--border);
+    height: 4px;
+    border-radius: 4px;
+    margin-bottom: 36px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--blue-accent), #7c3aed);
+    border-radius: 4px;
+    width: 0%;
+    transition: width 0.4s ease;
+  }
+
+  .section {
+    background: white;
+    border-radius: 20px;
+    padding: 28px 32px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(203,213,225,0.6);
+    box-shadow: 0 4px 24px rgba(37,99,235,0.06);
+    animation: fadeUp 0.5s ease both;
+  }
+
+  .section:nth-child(1) { animation-delay: 0.05s; }
+  .section:nth-child(2) { animation-delay: 0.1s; }
+  .section:nth-child(3) { animation-delay: 0.15s; }
+  .section:nth-child(4) { animation-delay: 0.2s; }
+  .section:nth-child(5) { animation-delay: 0.25s; }
+  .section:nth-child(6) { animation-delay: 0.3s; }
+  .section:nth-child(7) { animation-delay: 0.35s; }
+  .section:nth-child(8) { animation-delay: 0.4s; }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 22px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--blue-pale);
+  }
+
+  .section-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: var(--blue-pale);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--blue-accent);
+  }
+
+  .section-subtitle { font-size: 12px; color: var(--gray-text); margin-top: 2px; }
+
+  .field-group { margin-bottom: 18px; }
+  .field-group:last-child { margin-bottom: 0; }
+
+  label { display: block; font-size: 13px; font-weight: 500; color: var(--blue-dark); margin-bottom: 7px; }
+  label .required { color: var(--blue-accent); margin-left: 3px; }
+  label .hint { display: block; font-size: 11.5px; font-weight: 300; color: var(--gray-text); margin-top: 2px; }
+
+  input[type="text"], textarea, select {
+    width: 100%;
+    padding: 11px 15px;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: var(--blue-dark);
+    background: #fafcff;
+    transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+    outline: none;
+    resize: vertical;
+  }
+
+  input[type="text"]:focus, textarea:focus, select:focus {
+    border-color: var(--blue-accent);
+    background: white;
+    box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+  }
+
+  textarea { min-height: 90px; }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  .bullet-inputs { display: flex; flex-direction: column; gap: 10px; }
+
+  .bullet-row { display: flex; align-items: center; gap: 10px; }
+
+  .bullet-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--blue-accent); flex-shrink: 0; }
+
+  .bullet-row input { flex: 1; }
+
+  .add-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--blue-accent);
+    background: var(--blue-pale);
+    border: none;
+    padding: 7px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-top: 8px;
+  }
+
+  .add-btn:hover { background: var(--blue-light); }
+
+  .numbered-benefits { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+  .benefit-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--blue-pale);
+    border-radius: 10px;
+    padding: 6px 10px 6px 6px;
+  }
+
+  .benefit-num {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    background: white;
+    border: 1.5px solid var(--blue-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--blue-accent);
+    flex-shrink: 0;
+  }
+
+  .benefit-item input { flex: 1; background: transparent; border: none; padding: 6px 8px; font-size: 13px; }
+  .benefit-item input:focus { box-shadow: none; border: none; background: transparent; }
+
+  .objection-grid { display: flex; flex-direction: column; gap: 14px; }
+
+  .objection-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; align-items: start; }
+
+  .label-mini { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--gray-text); margin-bottom: 5px; }
+
+  .tag-container { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+
+  .tag {
+    padding: 5px 14px;
+    border-radius: 100px;
+    font-size: 12.5px;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1.5px solid var(--border);
+    color: var(--gray-text);
+    background: white;
+    transition: all 0.15s;
+    user-select: none;
+  }
+
+  .tag.active { background: var(--blue-accent); border-color: var(--blue-accent); color: white; }
+
+  .submit-area { text-align: center; margin-top: 32px; animation: fadeUp 0.5s ease 0.5s both; }
+
+  .submit-btn {
+    background: linear-gradient(135deg, var(--blue-accent) 0%, #1d4ed8 100%);
+    color: white;
+    border: none;
+    padding: 16px 48px;
+    border-radius: 14px;
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    box-shadow: 0 8px 24px rgba(37,99,235,0.3);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(37,99,235,0.4); }
+  .submit-btn:active { transform: translateY(0); }
+
+  .char-count { text-align: right; font-size: 11px; color: var(--gray-text); margin-top: 4px; }
+
+  .success-msg {
+    display: none;
+    background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+    border: 1.5px solid var(--success);
+    border-radius: 14px;
+    padding: 20px 28px;
+    text-align: center;
+    color: #065f46;
+    font-weight: 500;
+    margin-top: 20px;
+  }
+
+  @keyframes fadeDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+  @media (max-width: 600px) {
+    .two-col, .numbered-benefits, .objection-pair { grid-template-columns: 1fr; }
+    .section { padding: 20px 18px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="badge">Çözüm Ortağı Formu</div>
+    <h1>Ürün Tanıtım Formu</h1>
+    <p>Bu formu eksiksiz doldurmanız, ürününüzün hem kanal ortakları hem de son müşteriler tarafından doğru anlaşılmasını sağlar.</p>
+  </div>
+
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+
+  <!-- 1. Temel Bilgiler -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">🏢</div>
+      <div>
+        <div class="section-title">Temel Bilgiler</div>
+        <div class="section-subtitle">Şirket ve ürün kimliği</div>
+      </div>
+    </div>
+    <div class="two-col">
+      <div class="field-group">
+        <label>Şirket Adı <span class="required">*</span></label>
+        <input type="text" placeholder="Örn: Acme Teknoloji A.Ş." class="trackable" />
+      </div>
+      <div class="field-group">
+        <label>Ürün / Çözüm Adı <span class="required">*</span></label>
+        <input type="text" placeholder="Örn: SmartCRM Pro" class="trackable" />
+      </div>
+    </div>
+    <div class="two-col">
+      <div class="field-group">
+        <label>Ürün Kategorisi <span class="required">*</span></label>
+        <select class="trackable">
+          <option value="">Seçin...</option>
+          <option>SaaS / Yazılım</option>
+          <option>Donanım</option>
+          <option>Hizmet</option>
+          <option>Platform / Altyapı</option>
+          <option>Danışmanlık</option>
+          <option>Diğer</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label>İletişim Kişisi <span class="required">*</span></label>
+        <input type="text" placeholder="Ad Soyad / E-posta" class="trackable" />
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Hedef Müşteri -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">🎯</div>
+      <div>
+        <div class="section-title">Hedef Müşteri Profili</div>
+        <div class="section-subtitle">Kime satıyoruz?</div>
+      </div>
+    </div>
+    <div class="field-group">
+      <label>İdeal Müşteri Tanımı <span class="required">*</span>
+        <span class="hint">Sektör, şirket büyüklüğü, coğrafya — "herkese" cevabı kabul edilmez</span>
+      </label>
+      <textarea placeholder="Örn: 50-500 çalışanlı, üretim veya lojistik sektöründe faaliyet gösteren, ERP kullanmayan B2B şirketler." class="trackable"></textarea>
+    </div>
+    <div class="field-group">
+      <label>Karar Verici Unvanlar <span class="required">*</span></label>
+      <div class="tag-container">
+        <div class="tag" onclick="toggleTag(this)">CEO / Genel Müdür</div>
+        <div class="tag" onclick="toggleTag(this)">CFO / Finans Müdürü</div>
+        <div class="tag" onclick="toggleTag(this)">CTO / IT Müdürü</div>
+        <div class="tag" onclick="toggleTag(this)">Operasyon Müdürü</div>
+        <div class="tag" onclick="toggleTag(this)">Satın Alma Müdürü</div>
+        <div class="tag" onclick="toggleTag(this)">Satış Müdürü</div>
+        <div class="tag" onclick="toggleTag(this)">İK Müdürü</div>
+        <div class="tag" onclick="toggleTag(this)">Diğer</div>
+      </div>
+    </div>
+    <div class="field-group">
+      <label>Müşterinin Çözmek İstediği Ana Sorun <span class="required">*</span>
+        <span class="hint">Müşterinin kendi ağzıyla nasıl ifade ettiği — teknik jargon değil</span>
+      </label>
+      <textarea placeholder="Örn: 'Ekipler arası veri uyumsuzluğu yüzünden raporlama günler sürüyor ve hatalar oluyor.'" class="trackable"></textarea>
+    </div>
+  </div>
+
+  <!-- 3. İş Gerekçesi -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">💡</div>
+      <div>
+        <div class="section-title">İş Gerekçesi — Neden Yapıldı?</div>
+        <div class="section-subtitle">Business Objective</div>
+      </div>
+    </div>
+    <div class="field-group">
+      <label>Bu ürün hangi iş problemini çözmek için geliştirildi? <span class="required">*</span></label>
+      <div class="bullet-inputs" id="objectives">
+        <div class="bullet-row"><div class="bullet-dot"></div><input type="text" placeholder="Madde 1" class="trackable" /></div>
+        <div class="bullet-row"><div class="bullet-dot"></div><input type="text" placeholder="Madde 2" class="trackable" /></div>
+        <div class="bullet-row"><div class="bullet-dot"></div><input type="text" placeholder="Madde 3" class="trackable" /></div>
+      </div>
+      <button class="add-btn" onclick="addBullet('objectives')">+ Madde ekle</button>
+    </div>
+  </div>
+
+  <!-- 4. Çözüm -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">⚙️</div>
+      <div>
+        <div class="section-title">Çözüm — Nasıl Çözdünüz?</div>
+        <div class="section-subtitle">Solution</div>
+      </div>
+    </div>
+    <div class="field-group">
+      <label>30 Saniyelik Satış Konuşması (Elevator Pitch) <span class="required">*</span>
+        <span class="hint">Bir satıcının müşteriye ilk 30 saniyede söyleyeceği cümle</span>
+      </label>
+      <textarea placeholder="Örn: '[Ürün adı], üretim şirketlerinin saha operasyonlarını mobil üzerinden gerçek zamanlı yönetmesini sağlar. Böylece planlama ile saha arasındaki bilgi kopukluğunu ortadan kaldırır ve hata maliyetini %40 düşürür.'" class="trackable" oninput="countChars(this, 'pitchCount')"></textarea>
+      <div class="char-count" id="pitchCount">0 / 300 karakter</div>
+    </div>
+    <div class="field-group">
+      <label>Teknik Yaklaşım — Ürün nasıl çalışır?</label>
+      <div class="bullet-inputs" id="solutions">
+        <div class="bullet-row"><div class="bullet-dot"></div><input type="text" placeholder="Madde 1" class="trackable" /></div>
+        <div class="bullet-row"><div class="bullet-dot"></div><input type="text" placeholder="Madde 2" class="trackable" /></div>
+        <div class="bullet-row"><div class="bullet-dot"></div><input type="text" placeholder="Madde 3" class="trackable" /></div>
+      </div>
+      <button class="add-btn" onclick="addBullet('solutions')">+ Madde ekle</button>
+    </div>
+  </div>
+
+  <!-- 5. Faydalar -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">🚀</div>
+      <div>
+        <div class="section-title">Temel Faydalar</div>
+        <div class="section-subtitle">Key Benefits</div>
+      </div>
+    </div>
+    <div class="numbered-benefits">
+      <div class="benefit-item"><div class="benefit-num">1</div><input type="text" placeholder="Fayda..." class="trackable" /></div>
+      <div class="benefit-item"><div class="benefit-num">2</div><input type="text" placeholder="Fayda..." class="trackable" /></div>
+      <div class="benefit-item"><div class="benefit-num">3</div><input type="text" placeholder="Fayda..." class="trackable" /></div>
+      <div class="benefit-item"><div class="benefit-num">4</div><input type="text" placeholder="Fayda..." class="trackable" /></div>
+      <div class="benefit-item"><div class="benefit-num">5</div><input type="text" placeholder="Fayda..." class="trackable" /></div>
+      <div class="benefit-item"><div class="benefit-num">6</div><input type="text" placeholder="Fayda..." class="trackable" /></div>
+      <div class="benefit-item"><div class="benefit-num">7</div><input type="text" placeholder="Fayda..." class="trackable" /></div>
+    </div>
+  </div>
+
+  <!-- 6. Rekabet & Fiyat -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">🏆</div>
+      <div>
+        <div class="section-title">Rekabet & Fiyatlandırma</div>
+        <div class="section-subtitle">Neden biz, ne kadara?</div>
+      </div>
+    </div>
+    <div class="field-group">
+      <label>Ana Rakipler ve Farkımız <span class="required">*</span>
+        <span class="hint">Müşteri bizi kimle kıyaslar? Biz neden daha iyiyiz?</span>
+      </label>
+      <textarea placeholder="Örn: Rakip A'ya göre kurulum süreci 3x hızlı; Rakip B'ye göre Türkçe destek ve yerel entegrasyon sunuyoruz." class="trackable"></textarea>
+    </div>
+    <div class="two-col">
+      <div class="field-group">
+        <label>Fiyatlandırma Modeli <span class="required">*</span></label>
+        <select class="trackable">
+          <option value="">Seçin...</option>
+          <option>Aylık abonelik (SaaS)</option>
+          <option>Yıllık lisans</option>
+          <option>Kullanıcı başına ücret</option>
+          <option>Kullanım bazlı (tüketim)</option>
+          <option>Tek seferlik lisans</option>
+          <option>Proje bazlı</option>
+          <option>Freemium + Yükseltme</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label>Başlangıç Fiyat Aralığı
+          <span class="hint">Satıcının müşteriyle konuşabilmesi için</span>
+        </label>
+        <input type="text" placeholder="Örn: ₺5.000 - ₺25.000 / ay" class="trackable" />
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. Uygulama & Entegrasyon -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">🔌</div>
+      <div>
+        <div class="section-title">Uygulama & Entegrasyon</div>
+        <div class="section-subtitle">Teknik gereksinimler ve süreç</div>
+      </div>
+    </div>
+    <div class="two-col">
+      <div class="field-group">
+        <label>Kurulum / Devreye Alma Süresi</label>
+        <input type="text" placeholder="Örn: 2-4 hafta" class="trackable" />
+      </div>
+      <div class="field-group">
+        <label>Teknik Altyapı Gereksinimi</label>
+        <input type="text" placeholder="Örn: Bulut tabanlı, tarayıcı yeterli" class="trackable" />
+      </div>
+    </div>
+    <div class="field-group">
+      <label>Entegrasyon Yapılan Sistemler</label>
+      <input type="text" placeholder="Örn: SAP, Microsoft 365, Salesforce, Logo ERP..." class="trackable" />
+    </div>
+    <div class="field-group">
+      <label>Müşteri Tarafında Kim / Ne Gerekli?</label>
+      <textarea placeholder="Örn: IT kaynağı gerektirmez. Sadece proje koordinatörü ve 2 saatlik onboarding yeterli." class="trackable" style="min-height:70px;"></textarea>
+    </div>
+  </div>
+
+  <!-- 8. Sonuç & İtirazlar -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">📊</div>
+      <div>
+        <div class="section-title">Sonuç & Sık İtirazlar</div>
+        <div class="section-subtitle">Kanıt ve sahada hazırlık</div>
+      </div>
+    </div>
+    <div class="field-group">
+      <label>Ölçülebilir Sonuçlar <span class="required">*</span>
+        <span class="hint">Yüzde, zaman, maliyet — mümkünse gerçek müşteri verisi</span>
+      </label>
+      <div class="bullet-inputs" id="results">
+        <div class="bullet-row"><div class="bullet-dot"></div><input type="text" placeholder="Örn: Ortalama %35 verimlilik artışı" class="trackable" /></div>
+        <div class="bullet-row"><div class="bullet-dot"></div><input type="text" placeholder="Örn: ROI 6 ayda geri dönüyor" class="trackable" /></div>
+        <div class="bullet-row"><div class="bullet-dot"></div><input type="text" placeholder="Örn: 12 müşteride doğrulanmış" class="trackable" /></div>
+      </div>
+      <button class="add-btn" onclick="addBullet('results')">+ Sonuç ekle</button>
+    </div>
+    <div class="field-group" style="margin-top:22px;">
+      <label>Sık Sorulan İtirazlar & Cevapları
+        <span class="hint">Müşteri ne der — sen ne yanıtlarsın?</span>
+      </label>
+      <div class="objection-grid" id="objections">
+        <div class="objection-pair">
+          <div><div class="label-mini">🔴 İtiraz</div><input type="text" placeholder="Örn: Çok pahalı..." class="trackable" /></div>
+          <div><div class="label-mini">🟢 Cevap</div><input type="text" placeholder="Örn: İlk 3 ayda..." class="trackable" /></div>
+        </div>
+        <div class="objection-pair">
+          <div><div class="label-mini">🔴 İtiraz</div><input type="text" placeholder="Örn: Kurulumu zor mu?" class="trackable" /></div>
+          <div><div class="label-mini">🟢 Cevap</div><input type="text" placeholder="Örn: IT gerektirmez..." class="trackable" /></div>
+        </div>
+      </div>
+      <button class="add-btn" onclick="addObjection()">+ İtiraz ekle</button>
+    </div>
+    <div class="field-group" style="margin-top:18px;">
+      <label>Referans Müşteri / Vaka Çalışması</label>
+      <textarea placeholder="Varsa: 'X sektöründen Y şirketi, Z sorunu çözmek için kullandı, W sonucunu elde etti.' (İsim paylaşılamıyorsa sektör ve büyüklük yeter.)" class="trackable" style="min-height:70px;"></textarea>
+    </div>
+  </div>
+
+  <div class="submit-area">
+    <button class="submit-btn" onclick="submitForm()">Formu Gönder →</button>
+  </div>
+
+  <div class="success-msg" id="successMsg">
+    ✅ Form başarıyla gönderildi! Teşekkürler.
+  </div>
+</div>
+
+<script>
+  function toggleTag(el) { el.classList.toggle('active'); updateProgress(); }
+
+  function addBullet(id) {
+    const c = document.getElementById(id);
+    const r = document.createElement('div');
+    r.className = 'bullet-row';
+    r.innerHTML = '<div class="bullet-dot"></div><input type="text" placeholder="Yeni madde..." class="trackable" />';
+    c.appendChild(r);
+    r.querySelector('input').focus();
+    updateProgress();
+  }
+
+  function addObjection() {
+    const c = document.getElementById('objections');
+    const p = document.createElement('div');
+    p.className = 'objection-pair';
+    p.innerHTML = '<div><div class="label-mini">🔴 İtiraz</div><input type="text" placeholder="İtiraz..." class="trackable" /></div><div><div class="label-mini">🟢 Cevap</div><input type="text" placeholder="Cevap..." class="trackable" /></div>';
+    c.appendChild(p);
+  }
+
+  function countChars(el, id) {
+    document.getElementById(id).textContent = el.value.length + ' / 300 karakter';
+    updateProgress();
+  }
+
+  function updateProgress() {
+    const inputs = document.querySelectorAll('.trackable');
+    let filled = 0;
+    inputs.forEach(i => { if ((i.tagName === 'SELECT' && i.value) || (i.tagName !== 'SELECT' && i.value.trim())) filled++; });
+    const tags = document.querySelectorAll('.tag.active').length;
+    const total = inputs.length + 3;
+    const pct = Math.min(100, Math.round(((filled + Math.min(tags, 3)) / total) * 100));
+    document.getElementById('progressFill').style.width = pct + '%';
+  }
+
+  document.addEventListener('input', updateProgress);
+
+  function submitForm() {
+    document.getElementById('successMsg').style.display = 'block';
+    document.getElementById('progressFill').style.width = '100%';
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>
