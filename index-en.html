@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Solution Partner Product Submission Form</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap');
+
+  :root {
+    --blue-dark: #0a1628;
+    --blue-mid: #1a3a6b;
+    --blue-accent: #2563eb;
+    --blue-light: #dbeafe;
+    --blue-pale: #eff6ff;
+    --white: #ffffff;
+    --gray-text: #64748b;
+    --border: #cbd5e1;
+    --success: #10b981;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: linear-gradient(135deg, #f0f7ff 0%, #e8f0fe 50%, #f5f3ff 100%);
+    min-height: 100vh;
+    padding: 32px 16px 60px;
+    color: var(--blue-dark);
+  }
+
+  .container { max-width: 860px; margin: 0 auto; }
+
+  .header {
+    text-align: center;
+    margin-bottom: 40px;
+    animation: fadeDown 0.6s ease both;
+  }
+
+  .header .badge {
+    display: inline-block;
+    background: var(--blue-accent);
+    color: white;
+    font-family: 'Syne', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 100px;
+    margin-bottom: 16px;
+  }
+
+  .header h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(26px, 5vw, 40px);
+    font-weight: 800;
+    color: var(--blue-dark);
+    line-height: 1.15;
+    margin-bottom: 10px;
+  }
+
+  .header p {
+    color: var(--gray-text);
+    font-size: 15px;
+    font-weight: 300;
+    max-width: 520px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  .progress-bar {
+    background: var(--border);
+    height: 4px;
+    border-radius: 4px;
+    margin-bottom: 36px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--blue-accent), #7c3aed);
+    border-radius: 4px;
+    width: 0%;
+    transition: width 0.4s ease;
+  }
+
+  .section {
+    background: white;
+    border-radius: 20px;
+    padding: 28px 32px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(203,213,225,0.6);
+    box-shadow: 0 4px 24px rgba(37,99,235,0.06);
+    animation: fadeUp 0.5s ease both;
+  }
+
+  .section:nth-child(1) { animation-delay: 0.05s; }
+  .section:nth-child(2) { animation-delay: 0.1s; }
+  .section:nth-child(3) { animation-delay: 0.15s; }
+  .section:nth-child(4) { animation-delay: 0.2s; }
+  .section:nth-child(5) { animation-delay: 0.25s; }
+  .section:nth-child(6) { animation-delay: 0.3s; }
+  .section:nth-child(7) { animation-delay: 0.35s; }
+  .section:nth-child(8) { animation-delay: 0.4s; }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 22px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--blue-pale);
+  }
+
+  .section-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: var(--blue-pale);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--blue-accent);
+  }
+
+  .section-subtitle { font-size: 12px; color: var(--gray-text); margin-top: 2px; }
+
+  .field-group { margin-bottom: 18px; }
+  .field-group:last-child { margin-bottom: 0; }
+
+  label { display: block; font-size: 13px; font-weight: 500; color: var(--blue-dark); margin-bottom: 7px; }
+  label .required { color: var(--blue-accent); margin-left: 3px; }
+  label .hint { display: block; font-size: 11.5px; font-weight: 300; color: var(--gray-text); margin-top: 2px; }
+
+  input[type="text"], textarea, select {
+    width: 100%;
+    padding: 11px 15px;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: var(--blue-dark);
+    background: #fafcff;
+    transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+    outline: none;
+    resize: vertical;
+  }
+
+  input[type="text"]:focus, textarea:focus, select:focus {
+    border-color: var(--blue-accent);
+    background: white;
+    box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+  }
+
+  textarea { min-height: 90px; }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  .bullet-inputs { display: flex; flex-direction: column; gap: 10px; }
+  .bullet-row { display: flex; align-items: center; gap: 10px; }
+  .bullet-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--blue-accent); flex-shrink: 0; }
+  .bullet-row input { flex: 1; }
+
+  .add-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--blue-accent);
+    background: var(--blue-pale);
+    border: none;
+    padding: 7px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-top: 8px;
+  }
+
+  .add-btn:hover { background: var(--blue-light); }
+
+  .numbered-benefits { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+  .benefit-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--blue-pale);
+    border-radius: 10px;
+    padding: 6px 10px 6px 6px;
+  }
+
+  .benefit-num {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    background: white;
+    border: 1.5px solid var(--blue-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--blue-accent);
+    flex-shrink: 0;
+  }
+
+  .benefit-item input { flex: 1; background: transparent; border: none; padding: 6px 8px; font-size: 13px; }
+  .benefit-item input:focus { box-shadow: none; border: none; background: transparent; }
+
+  .objection-grid { display: flex; flex-direction: column; gap: 14px; }
+  .objection-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; align-items: start; }
+  .label-mini { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--gray-text); margin-bottom: 5px; }
+
+  .tag-container { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+
+  .tag {
+    padding: 5px 14px;
+    border-radius: 100px;
+    font-size: 12.5px;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1.5px solid var(--border);
+    color: var(--gray-text);
+    background: white;
+    transition: all 0.15s;
+    user-select: none;
+  }
+
+  .tag.active { background: var(--blue-accent); border-color: var(--blue-accent); color: white; }
+
+  .submit-area { text-align: center; margin-top: 32px; animation: fadeUp 0.5s ease 0.5s both; }
+
+  .submit-btn {
+    background: linear-gradient(135deg, var(--blue-accent) 0%, #1d4ed8 100%);
+    color: white;
+    border: none;
+    padding: 16px 48px;
+    border-radius: 14px;
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    box-shadow: 0 8px 24px rgba(37,99,235,0.3);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(37,99,235,0.4); }
+  .submit-btn:active { transform: translateY(0); }
+
+  .char-count { text-align: right; font-size: 11px; color: var(--gray-text); margin-top: 4px; }
+
+  .success-msg {
+    display: none;
+    background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+    border: 1.5px solid var(--success);
+    border-radius: 14px;
+    padding: 20px 28px;
+    text-align: center;
+    color: #065f46;
+    font-weight: 500;
+    margin-top: 20px;
+  }
+
+  @keyframes fadeDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+  @media (max-width: 600px) {
+    .two-col, .numbered-benefits, .objection-pair { grid-template-columns: 1fr; }
+    .section { padding: 20px 18px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <div class="badge">Solution Partner Form</div>
+    <h1>Product Submission Form</h1>
+    <p>Completing this form helps both your channel partners and end customers clearly understand your product's value and how to position it.</p>
+  </div>
+
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+
+  <!-- 1. Basic Info -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">🏢</div>
+      <div>
+        <div class="section-title">Basic Information</div>
+        <div class="section-subtitle">Company & product identity</div>
+      </div>
+    </div>
+    <div class="two-col">
+      <div class="field-group">
+        <label>Company Name <span class="required">*</span></label>
+        <input type="text" placeholder="e.g. Acme Technologies Inc." class="trackable" />
+      </div>
+      <div class="field-group">
+        <label>Product / Solution Name <span class="required">*</span></label>
+        <input type="text" placeholder="e.g. SmartCRM Pro" class="trackable" />
+      </div>
+    </div>
+    <div class="two-col">
+      <div class="field-group">
+        <label>Product Category <span class="required">*</span></label>
+        <select class="trackable">
+          <option value="">Select...</option>
+          <option>SaaS / Software</option>
+          <option>Hardware</option>
+          <option>Service</option>
+          <option>Platform / Infrastructure</option>
+          <option>Consulting</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label>Contact Person <span class="required">*</span></label>
+        <input type="text" placeholder="Full Name / Email" class="trackable" />
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Ideal Customer Profile -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">🎯</div>
+      <div>
+        <div class="section-title">Ideal Customer Profile</div>
+        <div class="section-subtitle">Who are we selling to?</div>
+      </div>
+    </div>
+    <div class="field-group">
+      <label>Ideal Customer Definition <span class="required">*</span>
+        <span class="hint">Industry, company size, geography — "everyone" is not an acceptable answer</span>
+      </label>
+      <textarea placeholder="e.g. B2B companies with 50–500 employees in manufacturing or logistics that do not yet use an ERP system." class="trackable"></textarea>
+    </div>
+    <div class="field-group">
+      <label>Decision-Maker Titles <span class="required">*</span></label>
+      <div class="tag-container">
+        <div class="tag" onclick="toggleTag(this)">CEO / General Manager</div>
+        <div class="tag" onclick="toggleTag(this)">CFO / Finance Director</div>
+        <div class="tag" onclick="toggleTag(this)">CTO / IT Manager</div>
+        <div class="tag" onclick="toggleTag(this)">Operations Manager</div>
+        <div class="tag" onclick="toggleTag(this)">Procurement Manager</div>
+        <div class="tag" onclick="toggleTag(this)">Sales Manager</div>
+        <div class="tag" onclick="toggleTag(this)">HR Manager</div>
+        <div class="tag" onclick="toggleTag(this)">Other</div>
+      </div>
+    </div>
+    <div class="field-group">
+      <label>Core Problem the Customer Wants to Solve <span class="required">*</span>
+        <span class="hint">In the customer's own words — avoid internal technical jargon</span>
+      </label>
+      <textarea placeholder="e.g. 'Data inconsistency between teams means reporting takes days and errors are common.'" class="trackable"></textarea>
+    </div>
+  </div>
+
+  <!-- 3. Business Objective -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">💡</div>
+      <div>
+        <div class="section-title">Business Objective</div>
+        <div class="section-subtitle">Why was it built?</div>
+      </div>
+    </div>
+    <div class="field-group">
+      <label>What business problem was this product built to solve? <span class="required">*</span></label>
+      <div class="bullet-inputs" id="objectives">
+        <div class="bullet-row"><div class="bullet-dot"></div><input type="text" placeholder="Point 1" class="trackable" /></div>
+        <div class="bullet-row"><div class="bullet-dot"></div><input type="text" placeholder="Point 2" class="trackable" /></div>
+        <div class="bullet-row"><div class="bullet-dot"></div><input type="text" placeholder="Point 3" class="trackable" /></div>
+      </div>
+      <button class="add-btn" onclick="addBullet('objectives')">+ Add point</button>
+    </div>
+  </div>
+
+  <!-- 4. Solution -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">⚙️</div>
+      <div>
+        <div class="section-title">Solution</div>
+        <div class="section-subtitle">How did you solve it?</div>
+      </div>
+    </div>
+    <div class="field-group">
+      <label>30-Second Elevator Pitch <span class="required">*</span>
+        <span class="hint">The sentence a salesperson would say to a prospect in the first 30 seconds</span>
+      </label>
+      <textarea placeholder="e.g. '[Product name] enables manufacturing companies to manage field operations in real time via mobile. It eliminates the information gap between planning and the field, reducing error costs by 40%.'" class="trackable" oninput="countChars(this, 'pitchCount')"></textarea>
+      <div class="char-count" id="pitchCount">0 / 300 characters</div>
+    </div>
+    <div class="field-group">
+      <label>Technical Approach — How does the product work?</label>
+      <div class="bullet-inputs" id="solutions">
+        <div class="bullet-row"><div class="bullet-dot"></div><input type="text" placeholder="Point 1" class="trackable" /></div>
+        <div class="bullet-row"><div class="bullet-dot"></div><input type="text" placeholder="Point 2" class="trackable" /></div>
+        <div class="bullet-row"><div class="bullet-dot"></div><input type="text" placeholder="Point 3" class="trackable" /></div>
+      </div>
+      <button class="add-btn" onclick="addBullet('solutions')">+ Add point</button>
+    </div>
+  </div>
+
+  <!-- 5. Key Benefits -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">🚀</div>
+      <div>
+        <div class="section-title">Key Benefits</div>
+        <div class="section-subtitle">What value does it deliver?</div>
+      </div>
+    </div>
+    <div class="numbered-benefits">
+      <div class="benefit-item"><div class="benefit-num">1</div><input type="text" placeholder="Benefit..." class="trackable" /></div>
+      <div class="benefit-item"><div class="benefit-num">2</div><input type="text" placeholder="Benefit..." class="trackable" /></div>
+      <div class="benefit-item"><div class="benefit-num">3</div><input type="text" placeholder="Benefit..." class="trackable" /></div>
+      <div class="benefit-item"><div class="benefit-num">4</div><input type="text" placeholder="Benefit..." class="trackable" /></div>
+      <div class="benefit-item"><div class="benefit-num">5</div><input type="text" placeholder="Benefit..." class="trackable" /></div>
+      <div class="benefit-item"><div class="benefit-num">6</div><input type="text" placeholder="Benefit..." class="trackable" /></div>
+      <div class="benefit-item"><div class="benefit-num">7</div><input type="text" placeholder="Benefit..." class="trackable" /></div>
+    </div>
+  </div>
+
+  <!-- 6. Competition & Pricing -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">🏆</div>
+      <div>
+        <div class="section-title">Competition & Pricing</div>
+        <div class="section-subtitle">Why us, and at what cost?</div>
+      </div>
+    </div>
+    <div class="field-group">
+      <label>Key Competitors & Our Differentiation <span class="required">*</span>
+        <span class="hint">Who will customers compare us to? Why are we better?</span>
+      </label>
+      <textarea placeholder="e.g. 3x faster to deploy than Competitor A; unlike Competitor B we offer local language support and native integrations; vs. manual/Excel processes we eliminate human error entirely." class="trackable"></textarea>
+    </div>
+    <div class="two-col">
+      <div class="field-group">
+        <label>Pricing Model <span class="required">*</span></label>
+        <select class="trackable">
+          <option value="">Select...</option>
+          <option>Monthly subscription (SaaS)</option>
+          <option>Annual license</option>
+          <option>Per-user pricing</option>
+          <option>Usage-based (consumption)</option>
+          <option>One-time license</option>
+          <option>Project-based</option>
+          <option>Freemium + Upgrade</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label>Starting Price Range
+          <span class="hint">So the salesperson can have an informed conversation</span>
+        </label>
+        <input type="text" placeholder="e.g. $500 – $2,500 / month" class="trackable" />
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. Implementation & Integration -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">🔌</div>
+      <div>
+        <div class="section-title">Implementation & Integration</div>
+        <div class="section-subtitle">Technical requirements & timeline</div>
+      </div>
+    </div>
+    <div class="two-col">
+      <div class="field-group">
+        <label>Deployment / Go-Live Timeline</label>
+        <input type="text" placeholder="e.g. 2–4 weeks" class="trackable" />
+      </div>
+      <div class="field-group">
+        <label>Technical Infrastructure Requirements</label>
+        <input type="text" placeholder="e.g. Cloud-based, browser only" class="trackable" />
+      </div>
+    </div>
+    <div class="field-group">
+      <label>Systems We Integrate With</label>
+      <input type="text" placeholder="e.g. SAP, Microsoft 365, Salesforce, HubSpot..." class="trackable" />
+    </div>
+    <div class="field-group">
+      <label>What Does the Customer Need to Provide?</label>
+      <textarea placeholder="e.g. No IT resources required. A project coordinator and a 2-hour onboarding session are sufficient." class="trackable" style="min-height:70px;"></textarea>
+    </div>
+  </div>
+
+  <!-- 8. Results & Objections -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">📊</div>
+      <div>
+        <div class="section-title">Results & Common Objections</div>
+        <div class="section-subtitle">Proof points & field readiness</div>
+      </div>
+    </div>
+    <div class="field-group">
+      <label>Measurable Outcomes <span class="required">*</span>
+        <span class="hint">Percentages, time saved, cost reduction — real customer data preferred</span>
+      </label>
+      <div class="bullet-inputs" id="results">
+        <div class="bullet-row"><div class="bullet-dot"></div><input type="text" placeholder="e.g. Average 35% productivity improvement" class="trackable" /></div>
+        <div class="bullet-row"><div class="bullet-dot"></div><input type="text" placeholder="e.g. ROI achieved within 6 months" class="trackable" /></div>
+        <div class="bullet-row"><div class="bullet-dot"></div><input type="text" placeholder="e.g. Validated across 12 customers" class="trackable" /></div>
+      </div>
+      <button class="add-btn" onclick="addBullet('results')">+ Add result</button>
+    </div>
+    <div class="field-group" style="margin-top:22px;">
+      <label>Common Objections & Responses
+        <span class="hint">What does the customer say — and how do you answer?</span>
+      </label>
+      <div class="objection-grid" id="objections">
+        <div class="objection-pair">
+          <div><div class="label-mini">🔴 Objection</div><input type="text" placeholder="e.g. It's too expensive..." class="trackable" /></div>
+          <div><div class="label-mini">🟢 Response</div><input type="text" placeholder="e.g. Within the first 3 months..." class="trackable" /></div>
+        </div>
+        <div class="objection-pair">
+          <div><div class="label-mini">🔴 Objection</div><input type="text" placeholder="e.g. Is setup complicated?" class="trackable" /></div>
+          <div><div class="label-mini">🟢 Response</div><input type="text" placeholder="e.g. No IT needed..." class="trackable" /></div>
+        </div>
+      </div>
+      <button class="add-btn" onclick="addObjection()">+ Add objection</button>
+    </div>
+    <div class="field-group" style="margin-top:18px;">
+      <label>Reference Customer / Case Study</label>
+      <textarea placeholder="If available: 'A company in X industry used this to solve Y, and achieved Z.' (Industry and company size is fine if you can't share the name.)" class="trackable" style="min-height:70px;"></textarea>
+    </div>
+  </div>
+
+  <div class="submit-area">
+    <button class="submit-btn" onclick="submitForm()">Submit Form →</button>
+  </div>
+
+  <div class="success-msg" id="successMsg">
+    ✅ Form submitted successfully! Thank you.
+  </div>
+
+</div>
+
+<script>
+  function toggleTag(el) { el.classList.toggle('active'); updateProgress(); }
+
+  function addBullet(id) {
+    const c = document.getElementById(id);
+    const r = document.createElement('div');
+    r.className = 'bullet-row';
+    r.innerHTML = '<div class="bullet-dot"></div><input type="text" placeholder="New point..." class="trackable" />';
+    c.appendChild(r);
+    r.querySelector('input').focus();
+    updateProgress();
+  }
+
+  function addObjection() {
+    const c = document.getElementById('objections');
+    const p = document.createElement('div');
+    p.className = 'objection-pair';
+    p.innerHTML = '<div><div class="label-mini">🔴 Objection</div><input type="text" placeholder="Objection..." class="trackable" /></div><div><div class="label-mini">🟢 Response</div><input type="text" placeholder="Response..." class="trackable" /></div>';
+    c.appendChild(p);
+  }
+
+  function countChars(el, id) {
+    document.getElementById(id).textContent = el.value.length + ' / 300 characters';
+    updateProgress();
+  }
+
+  function updateProgress() {
+    const inputs = document.querySelectorAll('.trackable');
+    let filled = 0;
+    inputs.forEach(i => { if ((i.tagName === 'SELECT' && i.value) || (i.tagName !== 'SELECT' && i.value.trim())) filled++; });
+    const tags = document.querySelectorAll('.tag.active').length;
+    const total = inputs.length + 3;
+    const pct = Math.min(100, Math.round(((filled + Math.min(tags, 3)) / total) * 100));
+    document.getElementById('progressFill').style.width = pct + '%';
+  }
+
+  document.addEventListener('input', updateProgress);
+
+  function submitForm() {
+    document.getElementById('successMsg').style.display = 'block';
+    document.getElementById('progressFill').style.width = '100%';
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>
